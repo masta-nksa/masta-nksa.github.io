@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernangebote</title>
+<meta name="description" content="Interaktive Lernmaterialien für Unterricht und Selbststudium.">
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --surface: #ffffff;
+    --border: #e0dfda;
+    --border-hover: #b9b7ae;
+    --text: #1c1b19;
+    --muted: #6b6960;
+    --accent: #315b8c;
+    --shadow: 0 1px 2px rgba(0,0,0,.05);
+    --shadow-hover: 0 6px 20px rgba(0,0,0,.09);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16161a;
+      --surface: #1f1f24;
+      --border: #33333b;
+      --border-hover: #56565f;
+      --text: #ececec;
+      --muted: #a0a0a8;
+      --accent: #8ab4e8;
+      --shadow: none;
+      --shadow-hover: 0 6px 20px rgba(0,0,0,.4);
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0 1.25rem 4rem;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 62rem; margin: 0 auto; }
+
+  header { padding: 4rem 0 2.5rem; }
+  h1 {
+    margin: 0 0 .5rem;
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    font-weight: 650;
+    letter-spacing: -.02em;
+  }
+  .lead { margin: 0; max-width: 44ch; color: var(--muted); font-size: 1.05rem; }
+
+  h2 {
+    margin: 3rem 0 1.25rem;
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+    padding: 1.4rem 1.5rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  a.card:hover, a.card:focus-visible {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+  a.card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .card .tag {
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .card h3 {
+    margin: 0;
+    font-size: 1.18rem;
+    font-weight: 620;
+    letter-spacing: -.01em;
+  }
+  a.card:hover h3 { color: var(--accent); }
+  .card p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+  .badge {
+    display: inline-block;
+    margin-left: .45em;
+    padding: .15em .55em;
+    border: 1px solid var(--border-hover);
+    border-radius: 999px;
+    font-size: .62em;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    vertical-align: middle;
+  }
+  a.card:hover .badge { color: var(--muted); }
+
+  .card--soon { opacity: .72; }
+  .card--soon h3 { font-size: 1.05rem; }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: .85rem;
+  }
+  footer a { color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    a.card { transition: none; }
+    a.card:hover, a.card:focus-visible { transform: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Lernangebote</h1>
+    <p class="lead">Interaktive Materialien für den Unterricht und das Selbststudium.</p>
+  </header>
+
+  <main>
+    <h2>Kurse und Unterrichtseinheiten</h2>
+    <div class="grid">
+
+      <a class="card" href="https://masta-nksa.github.io/Cybersicherheit/">
+        <span class="tag">Informatik &middot; 2. Kanti</span>
+        <h3>Cybersicherheit</h3>
+        <p>Unterrichtseinheit über fünf Lektionen für den Informatikunterricht.</p>
+      </a>
+
+      <a class="card" href="https://masta-nksa.github.io/soi-kurs/">
+        <span class="tag">Informatik &middot; Vertiefung</span>
+        <h3>SOI-Vorbereitungskurs</h3>
+        <p>Vorbereitung auf Vorrunde und Erste Runde der Schweizer Informatik-Olympiade.</p>
+      </a>
+
+      <!-- Ziel: Übersichts-Gist (SUS_ANLEITUNG.md), enthält alle Links zu den Lektionen. -->
+      <a class="card" href="https://gist.github.com/masta-nksa/9f61c251d28ce9d029185288ca1d90a5">
+        <span class="tag">Informatik &middot; Projektkurs</span>
+        <h3>Chat-App mit Flutter</h3>
+        <p>Sechs Doppellektionen zu einer eigenen Echtzeit-Chat-App, ohne Installation
+           direkt im Browser.</p>
+      </a>
+
+    </div>
+
+    <h2>Trainer zum Selbstüben</h2>
+    <div class="grid">
+
+      <a class="card" href="https://masta-nksa.github.io/speech/">
+        <span class="tag">Englisch</span>
+        <h3>Voci-Trainer <span class="badge">Alpha</span></h3>
+        <p>Englische Vokabeln selbstständig üben. Steht noch am Anfang und wird zu einem
+           allgemeinen Fremdsprachentrainer ausgebaut.</p>
+      </a>
+
+      <a class="card" href="https://masta-nksa.github.io/verben/">
+        <span class="tag">Deutsch</span>
+        <h3>Verben Trainer Pro</h3>
+        <p>Deutsche Verben und ihre Konjugation gezielt trainieren.</p>
+      </a>
+
+    </div>
+
+    <h2>In Arbeit</h2>
+    <div class="grid">
+
+      <div class="card card--soon">
+        <span class="tag">micro:bit &middot; MakeCode</span>
+        <h3>ST7789V TFT-Erweiterung</h3>
+        <p>MakeCode-Paket für TFT-Displays am micro:bit. Noch ohne eigene Seite.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Quelltext aller Projekte auf <a href="https://github.com/masta-nksa">GitHub</a>.</p>
+  </footer>
+
+</div>
+</body>
+</html>
