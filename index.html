@@ -3,31 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lernangebote</title>
-<meta name="description" content="Interaktive Lernmaterialien für Unterricht und Selbststudium.">
+<title>Projekte</title>
+<meta name="description" content="Lernangebote, Trainer und Werkzeuge für Unterricht und Selbststudium.">
 <style>
   :root {
-    --bg: #f7f7f5;
+    --bg: #f6f6f3;
     --surface: #ffffff;
-    --border: #e0dfda;
-    --border-hover: #b9b7ae;
+    --border: #e2e1db;
+    --border-hover: #b8b6ad;
     --text: #1c1b19;
     --muted: #6b6960;
-    --accent: #315b8c;
-    --shadow: 0 1px 2px rgba(0,0,0,.05);
-    --shadow-hover: 0 6px 20px rgba(0,0,0,.09);
+    --faint: #8f8d84;
+    --accent: #2f5d91;
+    --chip-on-bg: #1c1b19;
+    --chip-on-text: #ffffff;
+    --shadow-hover: 0 8px 24px rgba(0,0,0,.08);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #16161a;
-      --surface: #1f1f24;
-      --border: #33333b;
-      --border-hover: #56565f;
+      --bg: #141417;
+      --surface: #1d1d21;
+      --border: #313138;
+      --border-hover: #55555e;
       --text: #ececec;
-      --muted: #a0a0a8;
-      --accent: #8ab4e8;
-      --shadow: none;
-      --shadow-hover: 0 6px 20px rgba(0,0,0,.4);
+      --muted: #a3a3ab;
+      --faint: #7d7d86;
+      --accent: #8cb6ea;
+      --chip-on-bg: #ececec;
+      --chip-on-text: #141417;
+      --shadow-hover: 0 8px 24px rgba(0,0,0,.45);
     }
   }
 
@@ -35,27 +39,57 @@
 
   body {
     margin: 0;
-    padding: 0 1.25rem 4rem;
+    padding: 0 1rem 4rem;
     background: var(--bg);
     color: var(--text);
-    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
-  .wrap { max-width: 62rem; margin: 0 auto; }
+  .wrap { max-width: 66rem; margin: 0 auto; }
 
-  header { padding: 4rem 0 2.5rem; }
+  header { padding: 3.5rem 0 1.75rem; }
   h1 {
-    margin: 0 0 .5rem;
+    margin: 0 0 .4rem;
     font-size: clamp(1.9rem, 5vw, 2.6rem);
     font-weight: 650;
     letter-spacing: -.02em;
   }
-  .lead { margin: 0; max-width: 44ch; color: var(--muted); font-size: 1.05rem; }
+  .lead { margin: 0; max-width: 46ch; color: var(--muted); font-size: 1.05rem; }
 
+  /* Filter */
+  .filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 0 0 .5rem;
+    padding: 0;
+    list-style: none;
+  }
+  .filter button {
+    font: inherit;
+    font-size: .88rem;
+    padding: .35rem .85rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+  }
+  .filter button:hover { border-color: var(--border-hover); }
+  .filter button[aria-pressed="true"] {
+    background: var(--chip-on-bg);
+    border-color: var(--chip-on-bg);
+    color: var(--chip-on-text);
+  }
+  .filter button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .filter .count { margin-left: .35em; opacity: .6; font-variant-numeric: tabular-nums; }
+
+  /* Bereiche */
+  section[hidden] { display: none; }
   h2 {
-    margin: 3rem 0 1.25rem;
-    font-size: .8rem;
+    margin: 2.5rem 0 1rem;
+    font-size: .78rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .09em;
@@ -64,76 +98,98 @@
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr));
+    gap: .9rem;
   }
 
+  /* Kachel: der Titel-Link deckt die ganze Kachel ab, der Code-Link liegt darüber */
   .card {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: .55rem;
-    padding: 1.4rem 1.5rem 1.5rem;
+    gap: .45rem;
+    padding: 1.2rem 1.3rem 1.05rem;
     border: 1px solid var(--border);
     border-radius: 12px;
     background: var(--surface);
-    box-shadow: var(--shadow);
-    color: inherit;
-    text-decoration: none;
     transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
   }
-  a.card:hover, a.card:focus-visible {
+  .card:hover, .card:focus-within {
     border-color: var(--border-hover);
     box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
   }
-  a.card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-  .card .tag {
-    font-size: .72rem;
+  .tag {
+    font-size: .7rem;
     font-weight: 600;
     letter-spacing: .06em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--faint);
   }
+
   .card h3 {
     margin: 0;
-    font-size: 1.18rem;
+    font-size: 1.12rem;
     font-weight: 620;
     letter-spacing: -.01em;
+    line-height: 1.3;
   }
-  a.card:hover h3 { color: var(--accent); }
-  .card p { margin: 0; color: var(--muted); font-size: .94rem; }
+  .card h3 a { color: inherit; text-decoration: none; }
+  .card h3 a::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+  .card h3 a:focus-visible { outline: none; }
+  .card h3 a:focus-visible::after { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .card:hover h3 { color: var(--accent); }
 
   .badge {
     display: inline-block;
-    margin-left: .45em;
-    padding: .15em .55em;
+    margin-left: .4em;
+    padding: .12em .5em;
     border: 1px solid var(--border-hover);
     border-radius: 999px;
-    font-size: .62em;
+    font-size: .6em;
     font-weight: 600;
     letter-spacing: .07em;
     text-transform: uppercase;
     color: var(--muted);
     vertical-align: middle;
   }
-  a.card:hover .badge { color: var(--muted); }
 
-  .card--soon { opacity: .72; }
-  .card--soon h3 { font-size: 1.05rem; }
+  .card p { margin: 0; flex: 1; color: var(--muted); font-size: .92rem; }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .35rem .9rem;
+    margin-top: .45rem;
+    font-size: .78rem;
+    color: var(--faint);
+  }
+  .lang { display: inline-flex; align-items: center; gap: .35rem; }
+  .lang i { width: .6rem; height: .6rem; border-radius: 50%; display: inline-block; }
+  .meta .code {
+    position: relative;
+    z-index: 1;
+    margin-left: auto;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-hover);
+  }
+  .meta .code:hover { color: var(--accent); border-color: var(--accent); }
 
   footer {
     margin-top: 4rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border);
-    color: var(--muted);
-    font-size: .85rem;
+    color: var(--faint);
+    font-size: .82rem;
   }
   footer a { color: var(--accent); }
 
   @media (prefers-reduced-motion: reduce) {
-    a.card { transition: none; }
-    a.card:hover, a.card:focus-visible { transform: none; }
+    .card { transition: none; }
+    .card:hover, .card:focus-within { transform: none; }
   }
 </style>
 </head>
@@ -141,70 +197,228 @@
 <div class="wrap">
 
   <header>
-    <h1>Lernangebote</h1>
-    <p class="lead">Interaktive Materialien für den Unterricht und das Selbststudium.</p>
+    <h1>Projekte</h1>
+    <p class="lead">Lernangebote, Trainer und Werkzeuge für Unterricht und Selbststudium.</p>
   </header>
 
-  <main>
-    <h2>Kurse und Unterrichtseinheiten</h2>
-    <div class="grid">
+  <ul class="filter" id="filter" aria-label="Nach Bereich filtern"></ul>
 
-      <a class="card" href="https://masta-nksa.github.io/Cybersicherheit/">
-        <span class="tag">Informatik &middot; 2. Kanti</span>
-        <h3>Cybersicherheit</h3>
-        <p>Unterrichtseinheit über fünf Lektionen für den Informatikunterricht.</p>
-      </a>
-
-      <a class="card" href="https://masta-nksa.github.io/soi-kurs/">
-        <span class="tag">Informatik &middot; Vertiefung</span>
-        <h3>SOI-Vorbereitungskurs</h3>
-        <p>Vorbereitung auf Vorrunde und Erste Runde der Schweizer Informatik-Olympiade.</p>
-      </a>
-
-      <!-- Ziel: Übersichts-Gist (SUS_ANLEITUNG.md), enthält alle Links zu den Lektionen. -->
-      <a class="card" href="https://gist.github.com/masta-nksa/9f61c251d28ce9d029185288ca1d90a5">
-        <span class="tag">Informatik &middot; Projektkurs</span>
-        <h3>Chat-App mit Flutter</h3>
-        <p>Sechs Doppellektionen zu einer eigenen Echtzeit-Chat-App, ohne Installation
-           direkt im Browser.</p>
-      </a>
-
-    </div>
-
-    <h2>Trainer zum Selbstüben</h2>
-    <div class="grid">
-
-      <a class="card" href="https://masta-nksa.github.io/speech/">
-        <span class="tag">Englisch</span>
-        <h3>Voci-Trainer <span class="badge">Alpha</span></h3>
-        <p>Englische Vokabeln selbstständig üben. Steht noch am Anfang und wird zu einem
-           allgemeinen Fremdsprachentrainer ausgebaut.</p>
-      </a>
-
-      <a class="card" href="https://masta-nksa.github.io/verben/">
-        <span class="tag">Deutsch</span>
-        <h3>Verben Trainer Pro</h3>
-        <p>Deutsche Verben und ihre Konjugation gezielt trainieren.</p>
-      </a>
-
-    </div>
-
-    <h2>In Arbeit</h2>
-    <div class="grid">
-
-      <div class="card card--soon">
-        <span class="tag">micro:bit &middot; MakeCode</span>
-        <h3>ST7789V TFT-Erweiterung</h3>
-        <p>MakeCode-Paket für TFT-Displays am micro:bit. Noch ohne eigene Seite.</p>
-      </div>
-
-    </div>
-  </main>
+  <main id="bereiche"></main>
 
   <footer>
-    <p>Quelltext aller Projekte auf <a href="https://github.com/masta-nksa">GitHub</a>.</p>
+    <p>Die Liste wird automatisch von <a href="https://github.com/masta-nksa">GitHub</a>
+       geladen und zeigt alle öffentlichen Projekte.</p>
   </footer>
 
 </div>
+
+<script>
+(function () {
+  var USER = "masta-nksa";
+  var CACHE_KEY = "repos-cache-v1";
+  var CACHE_MS = 60 * 60 * 1000;
+
+  // Reihenfolge der Bereiche. Nicht zugeordnete Repos landen in "Weitere".
+  var BEREICHE = [
+    { id: "unterricht", titel: "Kurse und Unterricht" },
+    { id: "trainer",    titel: "Trainer zum Selbstüben" },
+    { id: "werkzeuge",  titel: "Werkzeuge" },
+    { id: "microbit",   titel: "micro:bit" },
+    { id: "weitere",    titel: "Weitere Projekte" }
+  ];
+
+  // Handgepflegte Angaben. Alles, was hier fehlt, kommt direkt von GitHub.
+  var ANGABEN = {
+    "Cybersicherheit": { bereich: "unterricht", titel: "Cybersicherheit", tag: "Informatik · 2. Kanti",
+      text: "Unterrichtseinheit über fünf Lektionen für den Informatikunterricht." },
+    "soi-kurs": { bereich: "unterricht", titel: "SOI-Vorbereitungskurs", tag: "Informatik · Vertiefung",
+      text: "Vorbereitung auf Vorrunde und Erste Runde der Schweizer Informatik-Olympiade." },
+    "checks": { bereich: "unterricht", titel: "Self-Checks Informatik", tag: "Informatik",
+      text: "Multiple-Choice-Selbstkontrollen, thematisch geordnet und jederzeit lösbar." },
+    "chat-app-demo": { bereich: "unterricht", titel: "Klassen-Chat Demo", tag: "Informatik · Projektkurs",
+      text: "Die fertige Chat-App aus dem Flutter-Projektkurs zum Ausprobieren im Browser." },
+    "vokabeltrainer": { bereich: "trainer", titel: "Vokabeltrainer", tag: "Fremdsprachen",
+      text: "Mehrsprachiger Vokabeltrainer mit drei Lernmodi und drei Schwierigkeitsstufen." },
+    "speech": { bereich: "trainer", titel: "Voci-Trainer", badge: "Alpha", tag: "Englisch",
+      text: "Englische Vokabeln selbstständig üben. Wird zu einem allgemeinen Fremdsprachentrainer ausgebaut." },
+    "verben": { bereich: "trainer", titel: "Verben Trainer Pro", tag: "Deutsch",
+      text: "Deutsche Verben und ihre Konjugation gezielt trainieren." },
+    "nomen-est": { bereich: "werkzeuge", titel: "Nomen est", tag: "Für Lehrpersonen",
+      text: "Namen einer Klasse lernen, jemanden aufrufen, Gruppen bilden — aus dem Klassenfoto-PDF." },
+    "microbit-micropython-samples": { bereich: "microbit", titel: "MicroPython-Beispiele", tag: "micro:bit V2.2 · Impulswoche",
+      text: "Kommentierte Beispielprogramme mit Materialliste und Verkabelung." },
+    "pxt-ST7789V-2_0-TFT": { bereich: "microbit", titel: "ST7789V 2.0\" TFT", tag: "MakeCode-Paket",
+      text: "Erweiterung für das 2.0-Zoll-TFT-Display (240×320) am micro:bit." },
+    "microbit-ST7789": { bereich: "microbit", titel: "ST7789 TFT", tag: "MakeCode-Paket",
+      text: "Erweiterung für ST7789-TFT-Displays am micro:bit." }
+  };
+
+  // Einträge ohne öffentliches Repo.
+  var EXTRA = [
+    { name: "chat-app-kurs", bereich: "unterricht", titel: "Chat-App mit Flutter", tag: "Informatik · Projektkurs",
+      text: "Sechs Doppellektionen zu einer eigenen Echtzeit-Chat-App, ohne Installation direkt im Browser.",
+      url: "https://gist.github.com/masta-nksa/9f61c251d28ce9d029185288ca1d90a5" }
+  ];
+
+  var AUSBLENDEN = [USER + ".github.io"];
+
+  var SPRACHFARBEN = {
+    "Python": "#3572A5", "JavaScript": "#e0c341", "TypeScript": "#3178c6", "Dart": "#00B4AB",
+    "HTML": "#e34c26", "CSS": "#663399", "Java": "#b07219"
+  };
+
+  // Stand beim letzten Commit. Wird sofort angezeigt und danach von GitHub aktualisiert.
+  var SNAPSHOT = [{"name":"microbit-micropython-samples","description":"MicroPython Sample Code fuer den BBC micro:bit V2.2 (Impulswoche NKSA)","has_pages":true,"html_url":"https://github.com/masta-nksa/microbit-micropython-samples","language":"Python","pushed_at":"2026-09-16T22:35:33Z","size":534,"archived":false,"private":false},{"name":"vokabeltrainer","description":"Vokabeltrainer - Web-App fuer Englisch-Vokabeln (Young World 2)","has_pages":true,"html_url":"https://github.com/masta-nksa/vokabeltrainer","language":"JavaScript","pushed_at":"2026-09-12T17:05:49Z","size":12423,"archived":false,"private":false},{"name":"checks","description":"Self-Checks Informatik: statische Multiple-Choice-Selbstkontrollen (GitHub Pages)","has_pages":true,"html_url":"https://github.com/masta-nksa/checks","language":"CSS","pushed_at":"2026-09-09T19:41:54Z","size":93,"archived":false,"private":false},{"name":"Cybersicherheit","description":"Unterrichtseinheit Cybersicherheit (5 Lektionen, Informatik 2. Kanti)","has_pages":true,"html_url":"https://github.com/masta-nksa/Cybersicherheit","language":"CSS","pushed_at":"2026-09-01T17:17:46Z","size":314,"archived":false,"private":false},{"name":"nomen-est","description":"Flutter-Web-PWA zum Lernen von Schueler:innen-Namen anhand von Klassenfoto-PDFs","has_pages":true,"html_url":"https://github.com/masta-nksa/nomen-est","language":"Dart","pushed_at":"2026-08-27T15:25:35Z","size":591,"archived":false,"private":false},{"name":"soi-kurs","description":"Vorbereitungskurs fuer die Schweizer Informatik-Olympiade (Vorrunde und Erste Runde)","has_pages":true,"html_url":"https://github.com/masta-nksa/soi-kurs","language":"Python","pushed_at":"2026-08-24T05:20:05Z","size":338,"archived":false,"private":false},{"name":"chat-app-demo","description":"Klassen-Chat - Web-Demo (Musterloesung Lektion 6) des Flutter-Projektkurses","has_pages":true,"html_url":"https://github.com/masta-nksa/chat-app-demo","language":"JavaScript","pushed_at":"2026-08-13T15:39:42Z","size":11267,"archived":false,"private":false},{"name":"masta-nksa.github.io","description":null,"has_pages":true,"html_url":"https://github.com/masta-nksa/masta-nksa.github.io","language":"HTML","pushed_at":"2026-08-13T13:00:41Z","size":2,"archived":false,"private":false},{"name":"speech","description":null,"has_pages":true,"html_url":"https://github.com/masta-nksa/speech","language":"HTML","pushed_at":"2026-06-02T17:45:13Z","size":13753,"archived":false,"private":false},{"name":"verben","description":null,"has_pages":true,"html_url":"https://github.com/masta-nksa/verben","language":"JavaScript","pushed_at":"2026-03-01T10:45:37Z","size":13,"archived":false,"private":false},{"name":"pxt-ST7789V-2_0-TFT","description":"MakeCode Package for the OLEDST7789 ( GMT020-01 2.0\" 240x320 TFT Display).","has_pages":false,"html_url":"https://github.com/masta-nksa/pxt-ST7789V-2_0-TFT","language":"JavaScript","pushed_at":"2026-01-03T12:57:16Z","size":1814,"archived":false,"private":false},{"name":"microbit-ST7789","description":"MakeCode Package for the ST7789 TFT Display","has_pages":false,"html_url":"https://github.com/masta-nksa/microbit-ST7789","language":"TypeScript","pushed_at":"2026-01-02T18:32:52Z","size":179,"archived":false,"private":false},{"name":"einmaleins","description":null,"has_pages":false,"html_url":"https://github.com/masta-nksa/einmaleins","language":null,"pushed_at":"2024-09-23T19:03:40Z","size":0,"archived":false,"private":false}];
+
+  var aktiverBereich = "alle";
+  var eintraege = [];
+
+  function aufbereiten(repos) {
+    var liste = repos
+      .filter(function (r) { return !r.private && r.size > 0 && AUSBLENDEN.indexOf(r.name) === -1; })
+      .map(function (r) {
+        var a = ANGABEN[r.name] || {};
+        return {
+          name: r.name,
+          bereich: a.bereich || "weitere",
+          titel: a.titel || r.name,
+          badge: a.badge || (r.archived ? "Archiviert" : ""),
+          tag: a.tag || "",
+          text: a.text || r.description || "",
+          url: r.has_pages ? "https://" + USER + ".github.io/" + r.name + "/" : r.html_url,
+          code: r.has_pages ? r.html_url : "",
+          sprache: r.language || "",
+          datum: r.pushed_at || ""
+        };
+      });
+    EXTRA.forEach(function (e) {
+      liste.push({ name: e.name, bereich: e.bereich, titel: e.titel, badge: "", tag: e.tag,
+                   text: e.text, url: e.url, code: "", sprache: "", datum: "" });
+    });
+    liste.sort(function (x, y) { return (y.datum || "").localeCompare(x.datum || ""); });
+    return liste;
+  }
+
+  var relativ = window.Intl && Intl.RelativeTimeFormat ? new Intl.RelativeTimeFormat("de", { numeric: "auto" }) : null;
+  function wannAktualisiert(iso) {
+    if (!iso) return "";
+    var tage = Math.round((new Date(iso) - new Date()) / 86400000);
+    if (relativ && tage > -60) return "aktualisiert " + relativ.format(tage, "day");
+    if (relativ && tage > -730) return "aktualisiert " + relativ.format(Math.round(tage / 30), "month");
+    return "aktualisiert " + new Date(iso).toLocaleDateString("de-CH");
+  }
+
+  function el(tag, klasse, text) {
+    var e = document.createElement(tag);
+    if (klasse) e.className = klasse;
+    if (text) e.textContent = text;
+    return e;
+  }
+
+  function kachel(p) {
+    var card = el("article", "card");
+    if (p.tag) card.appendChild(el("span", "tag", p.tag));
+
+    var h3 = el("h3");
+    var link = el("a", "", p.titel);
+    link.href = p.url;
+    h3.appendChild(link);
+    if (p.badge) h3.appendChild(el("span", "badge", p.badge));
+    card.appendChild(h3);
+
+    if (p.text) card.appendChild(el("p", "", p.text));
+
+    var meta = el("div", "meta");
+    if (p.sprache) {
+      var lang = el("span", "lang");
+      var punkt = el("i");
+      punkt.style.background = SPRACHFARBEN[p.sprache] || "var(--faint)";
+      lang.appendChild(punkt);
+      lang.appendChild(document.createTextNode(p.sprache));
+      meta.appendChild(lang);
+    }
+    if (p.datum) meta.appendChild(el("span", "", wannAktualisiert(p.datum)));
+    if (p.code) {
+      var code = el("a", "code", "Code");
+      code.href = p.code;
+      meta.appendChild(code);
+    }
+    if (meta.childNodes.length) card.appendChild(meta);
+    return card;
+  }
+
+  function zeichnen() {
+    var main = document.getElementById("bereiche");
+    var filter = document.getElementById("filter");
+    main.textContent = "";
+    filter.textContent = "";
+
+    var belegt = BEREICHE.filter(function (b) {
+      return eintraege.some(function (p) { return p.bereich === b.id; });
+    });
+    if (aktiverBereich !== "alle" && !belegt.some(function (b) { return b.id === aktiverBereich; })) {
+      aktiverBereich = "alle";
+    }
+
+    [{ id: "alle", titel: "Alle" }].concat(belegt).forEach(function (b) {
+      var anzahl = b.id === "alle" ? eintraege.length
+        : eintraege.filter(function (p) { return p.bereich === b.id; }).length;
+      var li = el("li");
+      var btn = el("button", "", b.titel);
+      btn.type = "button";
+      btn.setAttribute("aria-pressed", String(aktiverBereich === b.id));
+      btn.appendChild(el("span", "count", String(anzahl)));
+      btn.addEventListener("click", function () { aktiverBereich = b.id; zeichnen(); });
+      li.appendChild(btn);
+      filter.appendChild(li);
+    });
+
+    belegt.forEach(function (b) {
+      var sec = el("section");
+      sec.hidden = aktiverBereich !== "alle" && aktiverBereich !== b.id;
+      sec.appendChild(el("h2", "", b.titel));
+      var grid = el("div", "grid");
+      eintraege.filter(function (p) { return p.bereich === b.id; })
+               .forEach(function (p) { grid.appendChild(kachel(p)); });
+      sec.appendChild(grid);
+      main.appendChild(sec);
+    });
+  }
+
+  function anzeigen(repos) {
+    eintraege = aufbereiten(repos);
+    zeichnen();
+  }
+
+  function cacheLesen() {
+    try {
+      var c = JSON.parse(localStorage.getItem(CACHE_KEY));
+      if (c && Date.now() - c.zeit < CACHE_MS && Array.isArray(c.repos)) return c.repos;
+    } catch (e) {}
+    return null;
+  }
+  function cacheSchreiben(repos) {
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ zeit: Date.now(), repos: repos })); } catch (e) {}
+  }
+
+  var ausCache = cacheLesen();
+  anzeigen(ausCache || SNAPSHOT);
+  if (ausCache) return;
+
+  // Ohne Anmeldung erlaubt GitHub 60 Abfragen pro Stunde je Netzwerk.
+  // Schlägt die Abfrage fehl, bleibt der Snapshot stehen.
+  fetch("https://api.github.com/users/" + USER + "/repos?per_page=100&sort=pushed")
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (repos) {
+      var schlank = repos.map(function (r) {
+        return { name: r.name, description: r.description, has_pages: r.has_pages, html_url: r.html_url,
+                 language: r.language, pushed_at: r.pushed_at, size: r.size, archived: r.archived, private: r.private };
+      });
+      cacheSchreiben(schlank);
+      anzeigen(schlank);
+    })
+    .catch(function () {});
+})();
+</script>
 </body>
 </html>
